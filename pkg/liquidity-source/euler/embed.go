@@ -1,12 +1,12 @@
-package dexT1
+package euler
 
 import _ "embed"
 
-//go:embed abis/dexReservesResolver.json
-var dexReservesResolverJSON []byte
+//go:embed abis/EulerSwap.json
+var eulerSwapJSON []byte
 
-//go:embed abis/ERC20.json
-var erc20JSON []byte
+//go:embed abis/EulerSwapFactory.json
+var eulerSwapFactoryJSON []byte
 
-//go:embed abis/storageRead.json
-var storageReadJSON []byte
+//go:embed abis/EulerSwapPeriphery.json
+var eulerSwapPeripheryJSON []byte

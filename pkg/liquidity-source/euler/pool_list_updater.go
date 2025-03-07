@@ -1,4 +1,4 @@
-package dexT1
+package euler
 
 import (
 	"context"

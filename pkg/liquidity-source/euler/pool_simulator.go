@@ -1,4 +1,4 @@
-package dexT1
+package euler
 
 import (
 	"errors"
@@ -17,16 +17,16 @@ type PoolSimulator struct {
 	pool.Pool
 	StaticExtra
 
-	CollateralReserves CollateralReserves
-	DebtReserves       DebtReserves
-	DexLimits          DexLimits
-	CenterPrice        *big.Int
+	Vault0 Vault
+	Vault1 Vault
+	EquilibriumReserve0 *uint112.Int
+	EquilibriumReserve1 *uint112.Int
+	PriceX              *uint256.Int
+	PriceY              *uint256.Int
+	ConcentrationX      *uint256.Int
+	ConcentrationY      *uint256.Int
+	FeeMultiplier       *uint256.Int
 
-	Token0Decimals uint8
-	Token1Decimals uint8
-
-	SyncTimestamp            int64
-	IsSwapAndArbitragePaused bool
 }
 
 var _ = pool.RegisterFactory0(DexType, NewPoolSimulator)
@@ -42,7 +42,7 @@ func NewPoolSimulator(entityPool entity.Pool) (*PoolSimulator, error) {
 		return nil, err
 	}
 
-	fee := big.NewInt(int64(entityPool.SwapFee * FeePercentPrecision))
+	fee := uint256.NewInt(extra.FeeMultiplier * FeePercentPrecision)
 
 	return &PoolSimulator{
 		Pool: pool.Pool{Info: pool.PoolInfo{
@@ -56,15 +56,15 @@ func NewPoolSimulator(entityPool entity.Pool) (*PoolSimulator, error) {
 			BlockNumber: entityPool.BlockNumber,
 			SwapFee:     fee,
 		}},
-		CollateralReserves:       extra.CollateralReserves,
-		DebtReserves:             extra.DebtReserves,
-		DexLimits:                extra.DexLimits,
-		CenterPrice:              extra.CenterPrice,
-		Token0Decimals:           entityPool.Tokens[0].Decimals,
-		Token1Decimals:           entityPool.Tokens[1].Decimals,
-		StaticExtra:              staticExtra,
-		IsSwapAndArbitragePaused: extra.IsSwapAndArbitragePaused,
-		SyncTimestamp:            entityPool.Timestamp,
+		Vault0:                 extra.Vault0,
+		Vault1:                 extra.Vault1,
+		EquilibriumReserve0:    extra.EquilibriumReserve0,
+		EquilibriumReserve1:    extra.EquilibriumReserve1,
+		PriceX:                 extra.PriceX,
+		PriceY:                 extra.PriceY,
+		ConcentrationX:         extra.ConcentrationX,
+		ConcentrationY:         extra.ConcentrationY,
+		FeeMultiplier:          extra.FeeMultiplier,
 	}, nil
 }
 

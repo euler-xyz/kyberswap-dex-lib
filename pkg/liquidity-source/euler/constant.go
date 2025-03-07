@@ -1,62 +1,39 @@
-package dexT1
+package euler
 
-import (
-	"errors"
-	"math/big"
+const (
+	DexType = "euler"
+)
 
-	"github.com/KyberNetwork/kyberswap-dex-lib/pkg/util/bignumber"
+const ( // EulerSwap methods
+	peripheryMethodGetLimits = "getLimits"
+	peripheryMethodQuoteExactInput = "quoteExactInput"
+	peripheryMethodQuoteExactOutput = "quoteExactOutput"
 )
 
 const (
-	DexType = "fluid-dex-t1"
-)
-
-const ( // DexReservesResolver methods
-	DRRMethodGetAllPoolsReservesAdjusted = "getAllPoolsReservesAdjusted"
-	DRRMethodGetPoolReservesAdjusted     = "getPoolReservesAdjusted"
-
-	// TokenMethodDecimals - ERC20 Token methods
-	TokenMethodDecimals = "decimals"
-
-	// SRMethodReadFromStorage - StorageRead methods
-	SRMethodReadFromStorage = "readFromStorage"
+	factoryMethodAllPools = "allPools"
+	factoryMethodAllPoolsLength = "allPoolsLength"
 )
 
 const (
-	DexAmountsDecimals = 12
+	pairMethodAsset0 = "asset0"
+	pairMethodAsset1 = "asset1"
+	pairMethodGetReserves = "getReserves"
 
-	FeePercentPrecision float64 = 1e4
+	pairMethodCurve = "curve"
+	pairMethodVault0 = "vault0"
+	pairMethodVault1 = "vault1"
+
+	pairMethodPriceX = "priceX"
+	pairMethodPriceY = "priceY"
+	pairMethodConcentrationX = "concentrationX"
+	pairMethodConcentrationY = "concentrationY"
+	pairMethodEquilibriumReserve0 = "equilibriumReserve0"
+	pairMethodEquilibriumReserve1 = "equilibriumReserve1"
+
+	pairMethodEulerAccount = "eulerAccount"
 )
 
 var (
-	MaxPriceDiff     = big.NewInt(5)      // 5%
-	MinSwapLiquidity = big.NewInt(0.85e4) // on-chain we use 1e4 but use extra buffer to avoid reverts
-
-	SIX_DECIMALS = big.NewInt(1e6)
-	TWO_DECIMALS = big.NewInt(1e2)
-
-	bI1e18 = bignumber.TenPowInt(18)
-	bI1e27 = bignumber.TenPowInt(27)
-)
-
-var (
-	ErrInvalidAmountIn  = errors.New("invalid amountIn")
-	ErrInvalidAmountOut = errors.New("invalid amount out")
-
-	ErrInsufficientReserve    = errors.New("insufficient reserve: tokenOut amount exceeds reserve")
-	ErrSwapAndArbitragePaused = errors.New("51043")
-
-	ErrInsufficientWithdrawable = errors.New("insufficient reserve: tokenOut amount exceeds withdrawable limit")
-	ErrInsufficientBorrowable   = errors.New("insufficient reserve: tokenOut amount exceeds borrowable limit")
-
-	ErrInsufficientMaxPrice = errors.New("insufficient reserve: tokenOut amount exceeds max price limit")
-
-	ErrVerifyReservesRatiosInvalid = errors.New("invalid reserves ratio")
-)
-
-var (
-	// Uniswap takes total gas of 125k = 21k base gas & 104k swap (this is when user has token balance)
-	// Fluid takes total gas of 175k = 21k base gas & 154k swap (this is when user has token balance),
-	// with ETH swaps costing less (because no WETH conversion)
-	defaultGas = Gas{Swap: 260000}
+	defaultGas = Gas{Swap: 400000}
 )

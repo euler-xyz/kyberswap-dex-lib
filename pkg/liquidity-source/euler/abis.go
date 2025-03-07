@@ -1,4 +1,4 @@
-package dexT1
+package euler
 
 import (
 	"bytes"
@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	dexReservesResolverABI abi.ABI
-	erc20                  abi.ABI
-	storageReadABI         abi.ABI
+	eulerSwapABI           abi.ABI
+	eulerSwapFactoryABI    abi.ABI
+	eulerSwapPeripheryABI  abi.ABI
 )
 
 func init() {
@@ -17,9 +17,9 @@ func init() {
 		ABI  *abi.ABI
 		data []byte
 	}{
-		{&dexReservesResolverABI, dexReservesResolverJSON},
-		{&erc20, erc20JSON},
-		{&storageReadABI, storageReadJSON},
+		{&eulerSwapABI, eulerSwapJSON},
+		{&eulerSwapFactoryABI, eulerSwapFactoryJSON},
+		{&eulerSwapPeripheryABI, eulerSwapPeripheryJSON},
 	}
 
 	for _, b := range builder {

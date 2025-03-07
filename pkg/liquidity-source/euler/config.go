@@ -1,9 +1,6 @@
-package dexT1
-
-import "github.com/KyberNetwork/kyberswap-dex-lib/pkg/valueobject"
+package euler
 
 type Config struct {
 	DexID               string              `json:"dexID"`
 	ChainID             valueobject.ChainID `json:"chainID"`
-	DexReservesResolver string              `json:"dexReservesResolver"`
 }
